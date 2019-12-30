@@ -10,6 +10,8 @@ url = input() #Taking URL from the user
 #Setting up the WebDriver to work with Google Chrome
 driver = webdriver.Chrome(executable_path='C:/Users/thear/PythonProjects/chromedriver.exe')
 
+#Loop to refresh and repeat the whole process
+# while(True):
 #This will launch the url on Google Chrome
 #Google Chrome will know that an automated system is accessing it
 #Python will wait till the webpage is loaded before moving forward
@@ -36,7 +38,7 @@ if (mainPlayButtonOverlay.is_displayed()):
 
 #Checking if Advertisement is being displayed
 try:
-    adSkipSlot = driver.find_element_by_class_name('ytp-ad-player-overlay-skip-or-preview')
+    adSkipSlot = driver.find_element_by_css_selector('.ytp-ad-player-overlay-skip-or-preview')
     print('Found Ad Player Overlay')
 
     #If advertisement is being displayed,
@@ -49,7 +51,7 @@ try:
                 skipButtonSlot = driver.find_elements_by_css_selector('.ytp-ad-skip-button-slot')
                 print('Found Skip Button Slot')
                 #Checking if button is displayed
-                if (skipButtonSlot.is_displayed()) :
+                if (skipButtonSlot[0].is_displayed()) :
                     print('Skip button is Active')
                     #We click the skip button
                     try:
@@ -65,12 +67,33 @@ try:
 except Exception as e:
     print(e)
 
+
 #Get the progress bar
 try:
     progressBar = driver.find_element_by_class_name('ytp-progress-bar ')
     print('Found Progress Bar')
-    currVal = progressBar.get_attribute('aria-valuenow')
-    maxVal = progressBar.get_attribute('aria-valuemax')
-    print(currVal,maxVal)
+    playButton = driver.find_element_by_css_selector('.ytp-play-button.ytp-button.ytp-play-button-playlist')
+    print('Found Play Button')
+    prevButton = driver.find_element_by_css_selector('.ytp-prev-button.ytp-button')
+    print('Found Prev Button')
+    settingsButton = driver.find_element_by_css_selector('.ytp-button.ytp-settings-button.ytp-hd-quality-badge')
+    print('Found Settings Button')
+    maxVal = int(progressBar.get_attribute('aria-valuemax'))
+    while(True):
+        try:
+            #Opening the settings to make sure progress bar is displayed
+            #Values get updated only as long as progress bar is displayed
+            settingsButton.click()
+        except Exception as e:
+            print(e)
+        currVal = int(progressBar.get_attribute('aria-valuenow'))
+        if(currVal == maxVal-1):
+            try:
+                # driver.get(url)
+                prevButton.click()
+                print('Restarted')
+            except Exception as e:
+                print(e)
+
 except Exception as e:
     print(e)
