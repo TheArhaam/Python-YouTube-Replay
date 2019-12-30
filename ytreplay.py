@@ -73,6 +73,7 @@ while(True):
         progressBar = driver.find_element_by_class_name('ytp-progress-bar ')
         print('Found Progress Bar')
         #Getting Play button
+        #Also identies if its a normal video or playlist video
         try:
             playButton = driver.find_element_by_css_selector('.ytp-play-button.ytp-button.ytp-play-button-playlist')
             print('Found Playlist Play Button')
