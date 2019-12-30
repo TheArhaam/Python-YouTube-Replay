@@ -31,11 +31,11 @@ while(True):
         print('Video did not start')
         try:
             mainPlayButton = driver.find_element_by_css_selector('#movie_player > div.ytp-cued-thumbnail-overlay > button')
-            print('Found Main Play Button')
+            print('Found Main Play Button') 
+            mainPlayButton.click()
+            print('Started video')
         except Exception as e:
             print(e)
-        mainPlayButton.click()
-        print('Started video')
 
     #Checking if Advertisement is being displayed
     try:
@@ -99,7 +99,7 @@ while(True):
             except Exception as e:
                 print(e)
             currVal = int(progressBar.get_attribute('aria-valuenow'))
-            if(currVal == maxVal-1):
+            if(currVal >= maxVal-1):
                 try:
                     if(refreshType == 'prev'):
                         prevButton.click()
