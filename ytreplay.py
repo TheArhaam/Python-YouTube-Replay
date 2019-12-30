@@ -19,36 +19,58 @@ driver.get(url)
 #So we're checking if the play button is displayed
 try:
     mainPlayButtonOverlay = driver.find_element_by_class_name('ytp-cued-thumbnail-overlay')
+    print('Found Main Play Button Overlay')
 except Exception as e:
     print(e)
 
 #If the play button is displayed we click on it and autostart the video
 if (mainPlayButtonOverlay.is_displayed()):
-    print('IN-1')
-    mainPlayButton = driver.find_element_by_css_selector('#movie_player > div.ytp-cued-thumbnail-overlay > button')
+    print('Video did not start')
+    try:
+        mainPlayButton = driver.find_element_by_css_selector('#movie_player > div.ytp-cued-thumbnail-overlay > button')
+        print('Found Main Play Button')
+    except Exception as e:
+        print(e)
     mainPlayButton.click()
+    print('Started video')
 
 #Checking if Advertisement is being displayed
 try:
-    adSkipSlot = driver.find_element_by_class_name('ytp-ad-player-overlay')
+    adSkipSlot = driver.find_element_by_class_name('ytp-ad-player-overlay-skip-or-preview')
+    print('Found Ad Player Overlay')
+
+    #If advertisement is being displayed,
+    if (adSkipSlot.is_displayed()):
+        print('Ad is active')
+        while True:
+            time.sleep(2)
+            try:
+                #Getting the Button slot so we can tell if the button is displayed or not
+                skipButtonSlot = driver.find_elements_by_css_selector('.ytp-ad-skip-button-slot')
+                print('Found Skip Button Slot')
+                #Checking if button is displayed
+                if (skipButtonSlot.is_displayed()) :
+                    print('Skip button is Active')
+                    #We click the skip button
+                    try:
+                        skipAd = driver.find_element_by_class_name('ytp-ad-skip-button ytp-button')
+                        print('Found Skip Button')
+                    except Exception as e:
+                        print(e)
+                    skipAd.click()
+                    print('Skipped Ad')
+                    break
+            except Exception as e:
+                print(e)
 except Exception as e:
     print(e)
 
-#If advertisement is being displayed,
-if (adSkipSlot.is_displayed()):
-    print('IN-2')
-    while True:
-        time.sleep(2)
-        try:
-            #Getting the Button slot so we can tell if the button is displayed or not
-            skipButtonSlot = driver.find_elements_by_css_selector('.ytp-ad-skip-button-slot')
-            #Checking if button is displayed
-            if (skipButtonSlot.is_displayed()) :
-                #We click the skip button
-                skipAd = driver.find_element_by_class_name('ytp-ad-skip-button ytp-button')
-                skipAd.click()
-                break
-        except Exception as e:
-            print(e)
-
-print('break')
+#Get the progress bar
+try:
+    progressBar = driver.find_element_by_class_name('ytp-progress-bar ')
+    print('Found Progress Bar')
+    currVal = progressBar.get_attribute('aria-valuenow')
+    maxVal = progressBar.get_attribute('aria-valuemax')
+    print(currVal,maxVal)
+except Exception as e:
+    print(e)
