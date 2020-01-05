@@ -5,7 +5,7 @@ import threading
 import time
 #For UI
 import tkinter
-from tkinter import Text, Entry, Label, Button
+from tkinter import *
 import os
 
 def mainfunc():
@@ -132,35 +132,38 @@ def mainfunc():
 #root represents the main window
 root = tkinter.Tk()
 
-#canvas helps us customize the window
-canvas = tkinter.Canvas(root, height=150, width=650, bg="#151965")
-canvas.pack()
-
-frame = tkinter.Frame(root, bg="white")
-frame.place(relwidth=0.8, relheight=0.8, relx=0.1, rely=0.1)
-
-#button to submit
-submitBttn = tkinter.Button(frame,
-                            text="SUBMIT",
-                            command=mainfunc,
-                            fg="white",
-                            bg="#151965",
-                            padx=10,
-                            pady=10)
-submitBttn.pack(side="bottom")
-
-# print('Enter the url of the video you would like to play on repeat: ')
-# url = input()  #Taking URL from the user
-
 urlLabel = Label(
-    frame,
+    root,
     text="Enter the url of the video you would like to play on repeat: ")
 urlLabel.config(font=('','15'))
-urlLabel.pack(side='top')
+urlLabel.grid(row=0,column=0)
 
-urlEntry = Entry(frame,width=50)
+#Function to get the button state
+def getBttnState(*args):
+    x = strvar.get()
+    if(x):
+        submitBttn.config(state=NORMAL)
+    else:
+        submitBttn.config(state=DISABLED)
+
+strvar = StringVar(root)
+strvar.trace("w", getBttnState)
+urlEntry = Entry(root,width=50,textvariable=strvar)
 urlEntry.config(font=('','15'))
-urlEntry.pack(side='bottom')
+urlEntry.grid(row=1,column=0)
+
+#button to submit
+submitBttn = tkinter.Button(root,
+                            text="SUBMIT",
+                            state = DISABLED,
+                            command=mainfunc,
+                            padx=10,
+                            pady=5,
+                            )
+submitBttn.grid(row=2,column=0)
+
+
+
 
 #this actually launches the UI
 root.mainloop()
