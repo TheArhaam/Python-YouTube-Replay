@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 import threading
 import time
+import re
 #For UI
 import tkinter
 from tkinter import *
@@ -140,7 +141,8 @@ urlLabel.grid(row=0,column=0)
 
 #Function to get the button state
 def getBttnState(*args):
-    x = strvar.get()
+    link = strvar.get()
+    x = re.search("^https://www.youtube.com/",link)
     if(x):
         submitBttn.config(state=NORMAL)
     else:
@@ -148,8 +150,8 @@ def getBttnState(*args):
 
 strvar = StringVar(root)
 strvar.trace("w", getBttnState)
-urlEntry = Entry(root,width=50,textvariable=strvar)
-urlEntry.config(font=('','15'))
+urlEntry = Entry(root,width=80,textvariable=strvar)
+urlEntry.config(font=('','12'))
 urlEntry.grid(row=1,column=0)
 
 #button to submit
