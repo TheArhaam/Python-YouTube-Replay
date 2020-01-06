@@ -8,6 +8,7 @@ import re
 import tkinter
 from tkinter import *
 import os
+from PIL import Image, ImageTk
 
 def mainfunc():
     url = urlEntry.get()
@@ -130,29 +131,47 @@ def mainfunc():
         except Exception as e:
             print(e)
 
+
+#================================ UI ================================
 #root represents the main window
 root = tkinter.Tk()
+root.title(' YouTube Replay')
+root.iconbitmap('assets/YouTubeLogoFavicon.ico')
+
+#Function to open the dialog containing information
+def infoDialog():
+    print('Reached')
+
+infoIcon = PhotoImage(file='assets/InfoIcon.png')
+# Resizing image to fit on button 
+photoimage = infoIcon.subsample(25, 25)
+infoBttn = Button(root,command=infoDialog)
+infoBttn.config(image=photoimage)
 
 urlLabel = Label(
     root,
     text="Enter the url of the video you would like to play on repeat: ")
 urlLabel.config(font=('','15'))
-urlLabel.grid(row=0,column=0)
 
 #Function to get the button state
-def getBttnState(*args):
+def checkUrl(*args):
     link = strvar.get()
-    x = re.search("^https://www.youtube.com/",link)
+    x = re.search("www.youtube.com",link)
     if(x):
         submitBttn.config(state=NORMAL)
+        errLabel.grid_forget()
     else:
         submitBttn.config(state=DISABLED)
+        errLabel.grid(row=2,column=0)
 
 strvar = StringVar(root)
-strvar.trace("w", getBttnState)
+strvar.trace("w", checkUrl)
 urlEntry = Entry(root,width=80,textvariable=strvar)
 urlEntry.config(font=('','12'))
-urlEntry.grid(row=1,column=0)
+
+#Error message
+errLabel = Label(root,text="Enter a valid YouTube URL.", fg="red")
+errLabel.config(font=('','10'))
 
 #button to submit
 submitBttn = tkinter.Button(root,
@@ -162,10 +181,11 @@ submitBttn = tkinter.Button(root,
                             padx=10,
                             pady=5,
                             )
-submitBttn.grid(row=2,column=0)
 
 
-
+urlLabel.grid(row=0,column=0,padx=5,pady=5,columnspan=2)
+urlEntry.grid(row=1,column=0,padx=10,pady=5,columnspan=2)
+submitBttn.grid(row=2,column=0,sticky=E,padx=5,pady=5);infoBttn.grid(row=2,column=1,sticky=W,padx=5,pady=5)
 
 #this actually launches the UI
 root.mainloop()
