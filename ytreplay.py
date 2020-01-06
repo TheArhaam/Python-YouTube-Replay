@@ -143,17 +143,16 @@ def infoDialog():
     popup = Tk()
     popup.title('Information')
     popup.iconbitmap('assets/InfoIconFavicon.ico')
+    mainfont = ('','10')
+    line1 = Label(popup,text='The SUBMIT button will only be enabled if a valid\nYouTube link has been inserted.\
+        \n\nThis program will perform the following tasks:\
+        \n-Autostart the video if it hasnt already started\
+        \n-Check if Advertisement is being displayed\
+        \n-Skip Advertisement once waiting period is over\
+        \n-Replay the video once it has reached the end')
+    line1.config(font=mainfont,justify=LEFT)
 
-    line1 = Label(popup,text='The SUBMIT button will only be available\nif a valid YouTube link has been inserted.')
-    line2 = Label(popup,text='\nThis program will perform the following tasks:')
-    line3 = Label(popup,text='-Autostart the video if it hasnt already started\
-\n-Check if Advertisement is being displayed\
-\n-Skip Advertisement once waiting period is over\
-\n-Replay the video once it has reached the end')
-
-    line1.grid(row=0,column=0,sticky=W)
-    line2.grid(row=1,column=0,sticky=W)
-    line3.grid(row=2,column=0,sticky=W)
+    line1.grid(row=0,column=0,sticky=W,padx=10,pady=5)
 
 infoIcon = PhotoImage(file='assets/InfoIcon.png')
 # Resizing image to fit on button 
