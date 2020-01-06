@@ -11,5 +11,18 @@ Program will perform the following tasks:
   <br>-Check if Advertisement is being displayed
   <br>-Skip Advertisement once waiting period is over
   <br>-Replay the video once it has reached the end
-  
-  ![](assets/demo.gif)
+<br>
+<hr>
+<p align="center">
+  <b>SCREENSHOTS:</b>
+  <br><img src="assets/Main.PNG" width="700">
+  <br>
+  <br>If you enter any text which is not a YouTube link:
+  <br><img src="assets/InvalidURL.PNG" width="700">
+  <br>
+  <br>Clicking on the (i) information button will open the following popup:
+  <br><img src="assets/Information.PNG" height="150">
+  <br>
+  <br><b>DEMO GIF:</b>
+  <br><img src="assets/demo.gif" height="700">
+</p>
