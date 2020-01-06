@@ -151,12 +151,25 @@ def infoDialog():
         \n-Skip Advertisement once waiting period is over\
         \n-Replay the video once it has reached the end')
     line1.config(font=mainfont,justify=LEFT)
-
     line1.grid(row=0,column=0,sticky=W,padx=10,pady=5)
+    #POSITIONING
+    # Apparently a common hack to get the window size. Temporarily hide the
+    # window to avoid update_idletasks() drawing the window in the wrong
+    # position.
+    popup.withdraw()
+    popup.update_idletasks()  # Update "requested size" from geometry manager
+    x = (popup.winfo_screenwidth() - popup.winfo_reqwidth()) / 2
+    y = (popup.winfo_screenheight() - popup.winfo_reqheight()) / 2
+    popup.geometry("+%d+%d" % (x, y))
+    # This seems to draw the window frame immediately, so only call deiconify()
+    # after setting correct window position
+    popup.deiconify()
+    popup.mainloop()
 
 infoIcon = PhotoImage(file='assets/InfoIcon.png')
 # Resizing image to fit on button 
 photoimage = infoIcon.subsample(25, 25)
+
 infoBttn = Button(root,command=infoDialog)
 infoBttn.config(image=photoimage)
 
@@ -199,6 +212,22 @@ urlLabel.grid(row=0,column=0,padx=5,pady=5,columnspan=2)
 urlEntry.grid(row=1,column=0,padx=10,pady=5,columnspan=2)
 submitBttn.grid(row=2,column=0,sticky=E,padx=5,pady=5);infoBttn.grid(row=2,column=1,sticky=W,padx=5,pady=5)
 
+#POSITIONING
+# Apparently a common hack to get the window size. Temporarily hide the
+# window to avoid update_idletasks() drawing the window in the wrong
+# position.
+root.withdraw()
+root.update_idletasks()  # Update "requested size" from geometry manager
+x = (root.winfo_screenwidth() - root.winfo_reqwidth()) / 2
+y = (root.winfo_screenheight() - root.winfo_reqheight()) / 2
+root.geometry("+%d+%d" % (x, y))
+# This seems to draw the window frame immediately, so only call deiconify()
+# after setting correct window position
+root.deiconify()
+
+
 #this actually launches the UI
 root.mainloop()
+
+
 
