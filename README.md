@@ -24,5 +24,6 @@ Program will perform the following tasks:
   <br><img src="assets/Information.PNG" height="150">
   <br>
   <br><b>DEMO GIF:</b>
+  <br>(You will notice that whenever I forward the video to the end, it restarts)
   <br><img src="assets/demo.gif" height="700">
 </p>
