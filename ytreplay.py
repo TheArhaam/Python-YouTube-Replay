@@ -34,7 +34,7 @@ def clickHandle():
             except Exception as e:
                 print(e)
 
-            #If the play button is displayed we click on it and autostart the video
+            # If the play button is displayed we click on it and autostart the video
             if (mainPlayButtonOverlay.is_displayed()):
                 print('Video did not start')
                 try:
@@ -101,6 +101,14 @@ def clickHandle():
                         refreshType = 'reload'
                     except Exception as e:
                         print(e)
+                #BACKUP INCASE VIDEO DOESNT PLAY
+                playButtonText = playButton.get_attribute('aria-label')
+                print('PlayButtonText: ',playButtonText)
+                if 'Play' in playButtonText:
+                    print('Video did not start')
+                    playButton.click()
+                    print('Backup- Play Button Clicked')
+                    
                 prevButton = driver.find_element_by_css_selector(
                     '.ytp-prev-button.ytp-button')
                 print('Found Prev Button')
@@ -112,8 +120,8 @@ def clickHandle():
                     try:
                         #Opening the settings to make sure progress bar is displayed
                         #Values get updated only as long as progress bar is displayed
-                        # settingsButton.click()
-                        print()
+                        settingsButton.click()
+                        # print()
                     except Exception as e:
                         print(e)
                     currVal = int(progressBar.get_attribute('aria-valuenow'))
