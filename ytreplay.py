@@ -101,14 +101,8 @@ def clickHandle():
                         refreshType = 'reload'
                     except Exception as e:
                         print(e)
-                #BACKUP INCASE VIDEO DOESNT PLAY
-                playButtonText = playButton.get_attribute('aria-label')
-                print('PlayButtonText: ',playButtonText)
-                if 'Play' in playButtonText:
-                    print('Video did not start')
-                    playButton.click()
-                    print('Backup- Play Button Clicked')
-                    
+                
+
                 prevButton = driver.find_element_by_css_selector(
                     '.ytp-prev-button.ytp-button')
                 print('Found Prev Button')
@@ -117,6 +111,14 @@ def clickHandle():
                 print('Found Settings Button')
                 maxVal = int(progressBar.get_attribute('aria-valuemax'))
                 while (True):
+                    #BACKUP INCASE VIDEO DOESNT PLAY
+                    playButtonText = playButton.get_attribute('aria-label')
+                    print('PlayButtonText: ',playButtonText)
+                    if 'Play' in playButtonText:
+                        print('Video is not playing')
+                        playButton.click()
+                        print('Backup- Play Button Clicked')
+
                     try:
                         #Opening the settings to make sure progress bar is displayed
                         #Values get updated only as long as progress bar is displayed
