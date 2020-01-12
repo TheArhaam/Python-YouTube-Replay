@@ -11,8 +11,12 @@ import os
 from PIL import Image, ImageTk
 
 # ====================== TO DO LIST ====================== 
-#Get the name of the video and display it in the UI [DONE]
-#Not able to pause video - FIX IT   [DONE (UNTESTED)]
+# Get the name of the video and display it in the UI [DONE]
+# Not able to pause video - FIX IT   [DONE (UNTESTED)]
+# Figure out how to close the browser when submit button is pressed again
+#   -Something to do with threading
+#   -Figure out how to stop the thread and close the driver within that thread
+# Display "Video Title" only when submit button is pressed and title is set
 
 def clickHandle():
     def mainfunc():
