@@ -11,7 +11,8 @@ import os
 from PIL import Image, ImageTk
 
 # ====================== TO DO LIST ====================== 
-#Get the name of the video and display it in the UI
+#Get the name of the video and display it in the UI [DONE]
+#Not able to pause video - FIX IT   [DONE (UNTESTED)]
 
 def clickHandle():
     def mainfunc():
@@ -23,6 +24,15 @@ def clickHandle():
         #Google Chrome will know that an automated system is accessing it
         #Python will wait till the webpage is loaded before moving forward
         driver.get(url)
+
+        #Getting title of the video
+        try:
+            vidTitle.set(driver.find_element_by_css_selector('#container > h1 > yt-formatted-string').text)
+            print('TITLE = '+vidTitle)
+            root.update_idletasks()
+        except Exception as e:
+            print(e)
+
         #Loop to refresh and repeat the whole process
         while (True):
             #Video doesn't seem to autstart
@@ -110,15 +120,14 @@ def clickHandle():
                     '.ytp-button.ytp-settings-button.ytp-hd-quality-badge')
                 print('Found Settings Button')
                 maxVal = int(progressBar.get_attribute('aria-valuemax'))
+                #BACKUP INCASE VIDEO DOESNT PLAY
+                playButtonText = playButton.get_attribute('aria-label')
+                print('PlayButtonText: ',playButtonText)
+                if 'Play' in playButtonText:
+                    print('Video is not playing')
+                    playButton.click()
+                    print('Backup- Play Button Clicked')
                 while (True):
-                    #BACKUP INCASE VIDEO DOESNT PLAY
-                    playButtonText = playButton.get_attribute('aria-label')
-                    print('PlayButtonText: ',playButtonText)
-                    if 'Play' in playButtonText:
-                        print('Video is not playing')
-                        playButton.click()
-                        print('Backup- Play Button Clicked')
-
                     try:
                         #Opening the settings to make sure progress bar is displayed
                         #Values get updated only as long as progress bar is displayed
@@ -226,10 +235,18 @@ submitBttn = tkinter.Button(root,
                             pady=5,
                             )
 
+vidTitle = StringVar(root)
 
+titleLabel = Label(root,text="Video Title: ")
+titleLabel.config(font=('','15','bold'))
+vidTitleLabel = Label(root,textvariable=vidTitle)
+vidTitleLabel.config(font=('','12'))
+
+#GRID LAYOUT
 urlLabel.grid(row=0,column=0,padx=5,pady=5,columnspan=2)
 urlEntry.grid(row=1,column=0,padx=10,pady=5,columnspan=2)
 submitBttn.grid(row=3,column=0,sticky=E,padx=5,pady=5);infoBttn.grid(row=3,column=1,sticky=W,padx=5,pady=5)
+titleLabel.grid(row=4,column=0,sticky=E,padx=5,pady=5);vidTitleLabel.grid(row=4,column=1,sticky=W,padx=5,pady=5)
 
 #POSITIONING
 # Apparently a common hack to get the window size. Temporarily hide the
