@@ -32,7 +32,7 @@ def clickHandle():
         #Getting title of the video
         try:
             vidTitle.set(driver.find_element_by_css_selector('#container > h1 > yt-formatted-string').text)
-            print('TITLE = '+vidTitle)
+            print('TITLE = '+vidTitle.get())
             root.update_idletasks()
         except Exception as e:
             print(e)
@@ -226,6 +226,12 @@ strvar.trace("w", checkUrl)
 urlEntry = Entry(root,width=80,textvariable=strvar)
 urlEntry.config(font=('','12'))
 
+#Function to show the video title
+def vidTitleShow(*args):
+    temp = vidTitle.get()
+    if(temp!=""):
+        titleLabel.grid(row=4,column=0,sticky=E,padx=5,pady=5);vidTitleLabel.grid(row=4,column=1,sticky=W,padx=5,pady=5)
+
 #Error message
 errLabel = Label(root,text="Enter a valid YouTube URL.", fg="red")
 errLabel.config(font=('','10'))
@@ -240,6 +246,7 @@ submitBttn = tkinter.Button(root,
                             )
 
 vidTitle = StringVar(root)
+vidTitle.trace("w",vidTitleShow)
 
 titleLabel = Label(root,text="Video Title: ")
 titleLabel.config(font=('','15','bold'))
@@ -250,7 +257,6 @@ vidTitleLabel.config(font=('','12'))
 urlLabel.grid(row=0,column=0,padx=5,pady=5,columnspan=2)
 urlEntry.grid(row=1,column=0,padx=10,pady=5,columnspan=2)
 submitBttn.grid(row=3,column=0,sticky=E,padx=5,pady=5);infoBttn.grid(row=3,column=1,sticky=W,padx=5,pady=5)
-titleLabel.grid(row=4,column=0,sticky=E,padx=5,pady=5);vidTitleLabel.grid(row=4,column=1,sticky=W,padx=5,pady=5)
 
 #POSITIONING
 # Apparently a common hack to get the window size. Temporarily hide the
