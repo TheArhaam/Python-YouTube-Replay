@@ -13,10 +13,14 @@ from PIL import Image, ImageTk
 # ====================== TO DO LIST ====================== 
 # Get the name of the video and display it in the UI [DONE]
 # Not able to pause video - FIX IT   [DONE (UNTESTED)]
-# Figure out how to close the browser when submit button is pressed again
+# Figure out how to close the browser when submit button is pressed again [SEEMS IMPOSSIBLE WITHOUT FIGURING OUT THREADING]
 #   -Something to do with threading
 #   -Figure out how to stop the thread and close the driver within that thread
-# Display "Video Title" only when submit button is pressed and title is set
+# Display "Video Title" only when submit button is pressed and title is set [DONE]
+# BUILD GUI FOR THE ENTIRE EXPERIENCE
+#   -Progress bar details
+#   -Pause/Play button
+#   -Suggestions to switch to another video
 
 def clickHandle():
     def mainfunc():
